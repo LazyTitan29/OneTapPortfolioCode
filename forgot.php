@@ -6,7 +6,7 @@ require "mail.php";
 
 
 
-	if(!$conn = mysqli_connect("localhost","u693593446_user","@@Njmv1OoC^0","u693593446_fms_db")){
+	if(!$conn = mysqli_connect("localhost","root","","fms_db")){
 	// if(!$conn = mysqli_connect("localhost","root","","laco2_db")){
 
 		die("could not connect");

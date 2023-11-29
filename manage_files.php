@@ -32,13 +32,13 @@ include 'admin_class.php';
 	<?php endif; ?>
     <div class="form-group" id="msg"></div>
 
-  
-    <select name="type" class="form-control">
+  <select name="type" class="form-control">
   <option value="">Option</option>         
   <option value="internal" <?php if(isset($meta['type']) && $meta['type'] == 'internal') {echo 'selected';} ?>>Internal</option>
   <option value="external" <?php if(isset($meta['type']) && $meta['type'] == 'external') {echo 'selected';} ?>>External</option>
   <option value="best" <?php if(isset($meta['type']) && $meta['type'] == 'best') {echo 'selected';} ?>>Best</option>
-</select>
+  </select>
+
 <?php echo isset($meta['type']) ? $meta['type'] :'' ?>
   <!-- <input type="checkbox" id="show-options" onclick="toggleOptions()">
   <label for="show-options">Show options</label>
@@ -61,6 +61,7 @@ include 'admin_class.php';
 
 </div>
 <script>
+
   function toggleOptions() {
     var options = document.getElementById("options");
     if (options.style.display === "none") {
@@ -69,36 +70,46 @@ include 'admin_class.php';
       options.style.display = "none";
     }
   }
-  $(document).ready(function(){
-    $('#manage-files').submit(function(e){
-      e.preventDefault()
-      start_load();
+$(document).ready(function(){
+  $('#manage-files').submit(function(e){
+    e.preventDefault()
+    start_load();
     $('#msg').html('')
-    $.ajax({
-      url:'ajax.php?action=save_files',
-      data: new FormData($(this)[0]),
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: 'POST',
-        type: 'POST',
-      success:function(resp){
-        if(typeof resp != undefined){
-          resp = JSON.parse(resp);
-          if(resp.status == 1){
-            alert_toast("New File successfully added.",'success')
-            setTimeout(function(){
-              location.reload()
-            },1500)
-          }else{
-            $('#msg').html('<div class="alert alert-danger">'+resp.msg+'</div>')
-            end_load()
-          }
-        }
+
+    // check file size
+  var file = $("#upload")[0].files[0];
+var fileSize = file.size / (1024 * 1024);
+if (fileSize > 100) {
+  alert_toast("File size exceeded the limit of 100 MB.",'warning');
+  end_load();
+  return;
+}
+
+$.ajax({
+  url:'ajax.php?action=save_files',
+  data: new FormData($(this)[0]),
+    cache: false,
+    contentType: false,
+    processData: false,
+    method: 'POST',
+    type: 'POST',
+  success:function(resp){
+    if(typeof resp != undefined){
+      resp = JSON.parse(resp);
+      if(resp.status == 1){
+        alert_toast("New File successfully added.",'success');
+        setTimeout(function(){
+          location.reload();
+        },1500);
+      }else{
+        $('#msg').html('<div class="alert alert-danger">'+resp.msg+'</div>');
+        end_load();
       }
-    })
-    })
-  })
+    }
+  }
+});
+});
+});
   function displayname(input,_this) {
           if (input.files && input.files[0]) {
               var reader = new FileReader();
@@ -109,3 +120,4 @@ include 'admin_class.php';
           }
       }
 </script>
+

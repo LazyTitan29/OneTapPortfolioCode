@@ -60,11 +60,6 @@ if(isset($_GET['sort'])) {
   }
 ?>
 
-
-
-
-
-
 <style>
 	.folder-item{
 		cursor: pointer;
@@ -192,25 +187,27 @@ a.custom-menu-list span.icon{
 						<tr style="background:#08245b;">
 							<th style="color:#ffff;text-indent:15px;padding:10px 0;" width="40%" class="">Filename</th>
 							<th style="color:#ffff;text-indent:15px;padding:10px 0;" width="20%" class="">Date</th>
-							<th style="color:#ffff;text-indent:15px;padding:10px 0;" width="35%" class="">Description</th>
+							<th style="color:#ffff;text-indent:15px;padding:10px 0;" width="40%" class="">Description</th>
+							<?php if($_SESSION['login_type'] == 2): ?>
+							<th style="color:#ffff;text-align:center;padding:10px 0;" width="20%" class="">Types</th>
+							<?php endif; ?>
 							<?php if($_SESSION['login_type'] == 1): ?>
-							<th style="color:#ffff;text-indent:15px;padding:10px 0;"  class="">
-							<form method="get" action="index.php">
-							<input type="hidden" name="page" value="files">
-							<input type="hidden" name="fid" value="<?php echo $folder_parent; ?>">
-							<select name="sort" onchange='this.form.submit()' id="sort" style="margin-right:15px;">
-								<option>Sorting</option>
-								<option value="all">All</option>
-								<option value="internal">Internal</option>
-								<option value="external">External</option>
-								<option value="best">Best</option>
-							</select>
-							
-							<noscript> <button type="submit" class="btn btn-primary">Sort</button> </noscript>
-							</form>
-
-							</th>
-						<?php endif; ?>
+								<th style="text-align:center;padding:10px 0; background-color:#08245b; color:#FFFFFF;" class="">
+									<form method="get" action="index.php">
+										<input type="hidden" name="page" value="files">
+										<input type="hidden" name="fid" value="<?php echo $folder_parent; ?>">
+										<select name="sort" onchange='this.form.submit()' id="sort" style="display: block; margin: 0 auto; background-color:#FFFFFF; color:#000000; border:1px solid #08245b;">
+											<option selected disabled style="display: none; color:#FFFFFF; background-color:#08245b;">Types</option>
+											<option value="all" style="color:#000000;">All</option>
+											<option value="internal" style="color:#000000;">Internal</option>
+											<option value="external" style="color:#000000;">External</option>
+											<option value="best" style="color:#000000;">Best</option>
+										</select>
+										
+										<noscript> <button type="submit" class="btn btn-primary">Sort</button> </noscript>
+									</form>
+								</th>
+							<?php endif; ?>
 						</tr>
 						<?php        //  file name
 					while($row=$files->fetch_assoc()):

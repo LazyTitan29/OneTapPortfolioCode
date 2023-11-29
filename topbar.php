@@ -14,16 +14,13 @@ span{
 }
 
 
-/* Add or modify these styles */
 @media screen and (min-width: 992px) {
   .navbar .col-lg-12 {
-    /* Utilize the full width of the navbar */
     display: flex;
-    justify-content: space-between; /* Space between logo and logout */
+    justify-content: space-between;
   }
 
   .navbar .col-md-1.float-right {
-    /* No longer restrict to col-md-1 width, let it auto-size */
     flex: 0 0 auto;
     display: flex;
     justify-content: flex-end;
@@ -31,7 +28,7 @@ span{
   }
 
   .logout-admin {
-    /* Ensure logout content is centered */
+    color:white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,12 +37,10 @@ span{
 
 @media screen and (max-width: 991px) {
   .navbar .col-lg-12 {
-    /* Stack items vertically on smaller screens */
     flex-direction: column;
   }
 
   .logout-admin {
-    /* Center logout button below the logo on smaller screens */
     display: block;
     width: 100%;
     text-align: center;
@@ -53,7 +48,7 @@ span{
     padding-bottom: 0.5rem;
   }
 }
-/*Test kung gagana*/
+
 .logout-admin:hover{
   color:#993333;
 }
@@ -70,9 +65,6 @@ span{
   color:#993333;
 }
 
-
-
-
 </style>
 
 <nav class="navbar navbar-dark blue fixed-top " style="padding:0;">
@@ -88,13 +80,13 @@ span{
   		</div>
       <?php if($_SESSION['login_type'] == 1): ?>
 	  	<div class="col-md-1 float-right">
-	  		<a href="ajax.php?action=logout" class="logout-admin"><?php echo $_SESSION['login_name'] ?> <i class="fa fa-power-off"></i></a>
+	  		<a href="ajax.php?action=logout" class="logout-admin"><?php echo $_SESSION['login_username'] ?> <i class="fa fa-power-off"></i></a>
 	    </div>
       <?php endif; ?>
 
       <?php if($_SESSION['login_type'] == 2): ?>
 	  	<div class="col-md-1 float-right">
-	  		<a href="ajax.php?action=logout" class="logout-user"><?php echo $_SESSION['login_name'] ?> <i class="fa fa-power-off"></i></a>
+	  		<a href="ajax.php?action=logout" class="logout-user"><?php echo $_SESSION['login_username'] ?> <i class="fa fa-power-off"></i></a>
 	    </div>
       <?php endif; ?>
     </div>
