@@ -53,7 +53,7 @@ span{
     padding-bottom: 0.5rem;
   }
 }
-]
+/*Test kung gagana*/
 .logout-admin:hover{
   color:#993333;
 }
